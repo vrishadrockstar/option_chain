@@ -2,14 +2,14 @@
   "name": "mongo_crud",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "engines": {
-	"node": "12.18.2"
+    "node": "12.18.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "devStart": "nodemon app.js",
-	"start": "node app.js",
+    "start": "node app.js",
     "build": "cd client && npm install && npm run build"
   },
   "author": "",
