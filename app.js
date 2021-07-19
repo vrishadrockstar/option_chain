@@ -4,7 +4,6 @@ const dataRoutes = require("./api/data/data.router.js");
 const path = require("path");
 
 const port = process.env.PORT || 3001;
-console.log(process.env.PORT);
 const app = express();
 
 app.use(express.json());

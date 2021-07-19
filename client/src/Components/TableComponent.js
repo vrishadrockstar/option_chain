@@ -1,10 +1,15 @@
 import React from "react";
-import { render } from "react-dom";
 
 class TableComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: [], expiryDates: [], selectedDate: "" };
+    this.state = {
+      data: [],
+      expiryDates: [],
+      selectedDate: "",
+      CE: {},
+      PE: {},
+    };
     this.onSort = this.onSort.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
@@ -19,6 +24,8 @@ class TableComponent extends React.Component {
           data: result.data,
           expiryDates: result.expiryDates,
           selectedDate: result.selectedDate,
+          CE: result.CE,
+          PE: result.PE,
         });
       });
   }
@@ -39,6 +46,8 @@ class TableComponent extends React.Component {
     const newdata = this.state.data;
     const expiryDates = this.state.expiryDates;
     const selectedDate = this.state.selectedDate;
+    const CE = this.state.CE;
+    const PE = this.state.PE;
     return (
       <table>
         <thead>
@@ -55,13 +64,18 @@ class TableComponent extends React.Component {
                 })}
               </select>
             </th>
-            <th colSpan="4">CE</th>
-            <th colSpan="4">PE</th>
+            <th colSpan="5">CE</th>
+            <th colSpan="5">PE</th>
           </tr>
           <tr>
-            <th>Strike Price</th>
+            <th title="Strike_Price" onClick={this.onSort}>
+              Strike Price
+            </th>
             <th title="CALL_OI" onClick={this.onSort}>
               OI
+            </th>
+            <th title="CALL_OI_CHANGE" onClick={this.onSort}>
+              CHANGE IN OI
             </th>
             <th title="CALL_VOL" onClick={this.onSort}>
               VOL
@@ -74,6 +88,9 @@ class TableComponent extends React.Component {
             </th>
             <th title="PUT_OI" onClick={this.onSort}>
               OI
+            </th>
+            <th title="PUT_OI_CHANGE" onClick={this.onSort}>
+              CHANGE IN OI
             </th>
             <th title="PUT_VOL" onClick={this.onSort}>
               VOL
@@ -92,16 +109,38 @@ class TableComponent extends React.Component {
               <tr key={index} data-item={unit}>
                 <td>{unit.Strike_Price}</td>
                 <td>{unit.CALL_OI}</td>
+                <td>{unit.CALL_OI_CHANGE}</td>
                 <td>{unit.CALL_VOL}</td>
                 <td>{unit.CALL_IV}</td>
                 <td>{unit.CALL_LTP}</td>
                 <td>{unit.PUT_OI}</td>
+                <td>{unit.PUT_OI_CHANGE}</td>
                 <td>{unit.PUT_VOL}</td>
                 <td>{unit.PUT_IV}</td>
                 <td>{unit.PUT_LTP}</td>
               </tr>
             );
           })}
+          <tr>
+            <td>Total</td>
+            <td>{CE.totOI || 0}</td>
+            <td></td>
+            <td>{CE.totVol || 0}</td>
+            <td></td>
+            <td></td>
+            <td>{PE.totOI || 0}</td>
+            <td></td>
+            <td>{PE.totVol || 0}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ratio</td>
+            <td colSpan="5">{(PE.totOI / CE.totOI).toFixed(3) || 0}(OI)</td>
+            <td colSpan="5">
+              {(PE.totVol / CE.totVol).toFixed(3) || 0}(Volume)
+            </td>
+          </tr>
         </tbody>
       </table>
     );

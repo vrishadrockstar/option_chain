@@ -1,5 +1,6 @@
 const URL = "https://www.nseindia.com";
-const OPTION_URL = "https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY";
+const OPTION_URL =
+  "https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY";
 const axios = require("axios");
 
 module.exports = {
@@ -45,19 +46,31 @@ module.exports = {
           (a) => a.expiryDate == selectedDate
         );
         let excelData = [];
+        let CE_totOI = 0;
+        let CE_totVol = 0;
+        let PE_totOI = 0;
+        let PE_totVol = 0;
         filterData.forEach((element) => {
           let prepareElement = {
             Strike_Price: element.strikePrice,
             Expiry_Date: element.expiryDate,
             CALL_OI: element.CE ? element.CE.openInterest : 0,
+            CALL_OI_CHANGE: element.CE ? element.CE.changeinOpenInterest : 0,
             CALL_VOL: element.CE ? element.CE.totalTradedVolume : 0,
             CALL_IV: element.CE ? element.CE.impliedVolatility : 0,
             CALL_LTP: element.CE ? element.CE.lastPrice : 0,
             PUT_OI: element.PE ? element.PE.openInterest : 0,
+            PUT_OI_CHANGE: element.PE ? element.PE.changeinOpenInterest : 0,
             PUT_VOL: element.PE ? element.PE.totalTradedVolume : 0,
             PUT_IV: element.PE ? element.PE.impliedVolatility : 0,
             PUT_LTP: element.PE ? element.PE.lastPrice : 0,
           };
+
+          CE_totOI = CE_totOI + prepareElement.CALL_OI;
+          CE_totVol = CE_totVol + prepareElement.CALL_VOL;
+          PE_totOI = PE_totOI + prepareElement.PUT_OI;
+          PE_totVol = PE_totVol + prepareElement.PUT_VOL;
+
           excelData.push(prepareElement);
         });
         let order = req.query.order;
@@ -69,6 +82,8 @@ module.exports = {
           data: excelData,
           expiryDates: dataDecords.records.expiryDates,
           selectedDate,
+          CE: { totOI: CE_totOI, totVol: CE_totVol },
+          PE: { totOI: PE_totOI, totVol: PE_totVol },
           message: "Fetched data successfully!",
         });
       })
