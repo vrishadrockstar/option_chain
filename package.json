@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+	"node": "12.18.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon app.js",
+	"start": "node app.js",
+    "build": "cd client && npm install && npm run build"
   },
   "author": "",
   "license": "ISC",
