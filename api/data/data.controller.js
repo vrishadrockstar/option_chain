@@ -1,11 +1,12 @@
-require("dotenv").config();
+const URL = "https://www.nseindia.com";
+const OPTION_URL = "https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY";
 const axios = require("axios");
 
 module.exports = {
   getData: (req, res, next) => {
     axios({
       method: "get",
-      url: process.env.URL,
+      url: URL,
       headers: {
         Connection: "keep-alive",
         "Accept-Encoding": "gzip, deflate, br",
@@ -17,7 +18,7 @@ module.exports = {
         let cookie = result.headers["set-cookie"];
         return axios({
           method: "get",
-          url: process.env.OPTION_URL,
+          url: OPTION_URL,
           headers: {
             Connection: "keep-alive",
             "Accept-Encoding": "gzip, deflate, br",
