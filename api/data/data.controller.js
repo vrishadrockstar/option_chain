@@ -11,6 +11,9 @@ module.exports = {
       headers: {
         Connection: "keep-alive",
         "Accept-Encoding": "gzip, deflate, br",
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11",
+        Referer: URL,
         cookie:
           "bm_sv=06AD295EF340D78218C8F1D93233D32C~vr1b3Bt2itochI0eCUSw0vOmU878XGWdh5Bl4AwSm7DNiFBOXdEWAcv1adoeJXYC1UGJGX1oFnwRxICOuaWOtstkswI4oPzqmV+XaQDPjrsB/B9Sy3u69q9j8PMTrBWAQatW7albJYOUBeqcBL1fvvRTZzWStvMAST15UIDaDZA=; Domain=.nseindia.com; Path=/; Max-Age=7175; HttpOnly",
       },
@@ -23,6 +26,9 @@ module.exports = {
           headers: {
             Connection: "keep-alive",
             "Accept-Encoding": "gzip, deflate, br",
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11",
+            Referer: OPTION_URL,
             cookie: cookie,
           },
         });
