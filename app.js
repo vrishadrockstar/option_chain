@@ -13,7 +13,7 @@ app.use("/api/data", dataRoutes);
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 app.listen(port, "0.0.0.0", () => {
-  console.log("Running on port", port);
+  console.log("Running on port:", port);
 });
 
 app.get("/", (req, res, next) => {
