@@ -1,5 +1,7 @@
 import React from "react";
 
+const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
+
 class TableComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -7,15 +9,17 @@ class TableComponent extends React.Component {
       data: [],
       expiryDates: [],
       selectedDate: "",
+      selectedType: "",
       CE: {},
       PE: {},
     };
     this.onSort = this.onSort.bind(this);
     this.changeDate = this.changeDate.bind(this);
+    this.changeType = this.changeType.bind(this);
   }
 
-  fetchData(date, order) {
-    fetch("/api/data?date=" + date + "&order=" + order)
+  fetchData(date, order, type) {
+    fetch("/api/data?date=" + date + "&order=" + order + "&type=" + type)
       .then(function (response) {
         return response.json();
       })
@@ -42,10 +46,15 @@ class TableComponent extends React.Component {
     this.fetchData(event.target.value);
   }
 
+  changeType(event) {
+    this.fetchData(this.state.selectedDate, null, event.target.value);
+  }
+
   render() {
     const newdata = this.state.data;
     const expiryDates = this.state.expiryDates;
     const selectedDate = this.state.selectedDate;
+    const selectedType = this.state.selectedType;
     const CE = this.state.CE;
     const PE = this.state.PE;
     return (
@@ -59,6 +68,15 @@ class TableComponent extends React.Component {
                   return (
                     <option key={date} value={date}>
                       {date}
+                    </option>
+                  );
+                })}
+              </select>
+              <select onChange={this.changeType} selected={selectedType}>
+                {arrTypes.map((type) => {
+                  return (
+                    <option key={type} value={type}>
+                      {type}
                     </option>
                   );
                 })}

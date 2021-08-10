@@ -1,7 +1,7 @@
 const URL = "https://www.nseindia.com";
-const OPTION_URL =
-  "https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY";
+const OPTION_URL = "https://www.nseindia.com/api/option-chain-indices?symbol=";
 const axios = require("axios");
+const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 
 module.exports = {
   getData: (req, res, next) => {
@@ -11,16 +11,22 @@ module.exports = {
       headers: {
         Connection: "keep-alive",
         "Accept-Encoding": "gzip, deflate, br",
-        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         cookie:
           "bm_sv=06AD295EF340D78218C8F1D93233D32C~vr1b3Bt2itochI0eCUSw0vOmU878XGWdh5Bl4AwSm7DNiFBOXdEWAcv1adoeJXYC1UGJGX1oFnwRxICOuaWOtstkswI4oPzqmV+XaQDPjrsB/B9Sy3u69q9j8PMTrBWAQatW7albJYOUBeqcBL1fvvRTZzWStvMAST15UIDaDZA=; Domain=.nseindia.com; Path=/; Max-Age=7175; HttpOnly",
       },
     })
       .then((result) => {
         let cookie = result.headers["set-cookie"];
+        let selectedType =
+          req.query.type && arrTypes.includes(req.query.type)
+            ? req.query.type
+            : arrTypes[0];
+
         return axios({
           method: "get",
-          url: OPTION_URL,
+          url: OPTION_URL + selectedType,
           headers: {
             Connection: "keep-alive",
             "Accept-Encoding": "gzip, deflate, br",
