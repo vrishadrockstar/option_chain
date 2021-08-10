@@ -28,6 +28,7 @@ class TableComponent extends React.Component {
           data: result.data,
           expiryDates: result.expiryDates,
           selectedDate: result.selectedDate,
+          selectedType: result.selectedType,
           CE: result.CE,
           PE: result.PE,
         });
