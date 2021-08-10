@@ -39,7 +39,11 @@ class TableComponent extends React.Component {
   }
 
   onSort(event) {
-    this.fetchData(this.state.selectedDate, event.target.title);
+    this.fetchData(
+      this.state.selectedDate,
+      event.target.title,
+      this.state.selectedType
+    );
   }
 
   changeDate(event) {
