@@ -33,8 +33,6 @@ module.exports = {
           headers: {
             Connection: "keep-alive",
             "Accept-Encoding": "gzip, deflate, br",
-            Accept:
-              acceptHeader,
             cookie: cookie,
           },
         });
