@@ -13,10 +13,12 @@ module.exports = {
       headers: {
         Connection: "keep-alive",
         "Accept-Encoding": "gzip, deflate, br",
-        "User-Agent":
-          userAgent,
+        Accept:
+          acceptHeader,
+		"user-agent":
+			userAgent,
         cookie:
-          "bm_sv=06AD295EF340D78218C8F1D93233D32C~vr1b3Bt2itochI0eCUSw0vOmU878XGWdh5Bl4AwSm7DNiFBOXdEWAcv1adoeJXYC1UGJGX1oFnwRxICOuaWOtstkswI4oPzqmV+XaQDPjrsB/B9Sy3u69q9j8PMTrBWAQatW7albJYOUBeqcBL1fvvRTZzWStvMAST15UIDaDZA=; Domain=.nseindia.com; Path=/; Max-Age=7175; HttpOnly",
+          "bm_sv=727EAA1E154DCB13949461AAB7ABCCC3~Wuu4QpUOGvR2EJLl+y8Wngy86HUhB020mD3wTqTA5DWVoYPZRvmkkoe//UKMerv38hfBOtPVQAYCW7y8d6t/hOJSEXOnIaw5P6k3mqFgq4FndpcDWRL74J7IUXMf1VnzUh/9Z2QHvWcuSa80EvB+n1/X8msPsJ4EXzLw6s3GL+A=; Domain=.nseindia.com; Path=/; Max-Age=7189; HttpOnly",
       },
     })
       .then((result) => {
@@ -32,8 +34,10 @@ module.exports = {
           headers: {
             Connection: "keep-alive",
             "Accept-Encoding": "gzip, deflate, br",
-            "User-Agent":
-			   userAgent,
+            Accept:
+              acceptHeader,
+			"user-agent":
+			  userAgent,
             cookie: cookie,
           },
         });
