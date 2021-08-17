@@ -2,7 +2,7 @@ const URL = "https://www.nseindia.com";
 const OPTION_URL = "https://www.nseindia.com/api/option-chain-indices?symbol=";
 const axios = require("axios");
 const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
-const acceptHeader = "*/*";
+const acceptHeader = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 
 module.exports = {
   getData: (req, res, next) => {
@@ -33,6 +33,8 @@ module.exports = {
             "Accept-Encoding": "gzip, deflate, br",
             Accept:
               acceptHeader,
+			"User-Agent":
+			  "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11",
             cookie: cookie,
           },
         });
