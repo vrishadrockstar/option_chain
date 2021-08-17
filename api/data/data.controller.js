@@ -35,8 +35,6 @@ module.exports = {
             "Accept-Encoding": "gzip, deflate, br",
             Accept:
               acceptHeader,
-			"User-Agent":
-			  userAgent,
             cookie: cookie,
           },
         });
