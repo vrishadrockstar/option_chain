@@ -3,6 +3,7 @@ const OPTION_URL = "https://www.nseindia.com/api/option-chain-indices?symbol=";
 const axios = require("axios");
 const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
+const userAgent = "Mozilla/5.0";
 
 module.exports = {
   getData: (req, res, next) => {
@@ -12,8 +13,8 @@ module.exports = {
       headers: {
         Connection: "keep-alive",
         "Accept-Encoding": "gzip, deflate, br",
-        Accept:
-          acceptHeader,
+        "User-Agent":
+          userAgent,
         cookie:
           "bm_sv=06AD295EF340D78218C8F1D93233D32C~vr1b3Bt2itochI0eCUSw0vOmU878XGWdh5Bl4AwSm7DNiFBOXdEWAcv1adoeJXYC1UGJGX1oFnwRxICOuaWOtstkswI4oPzqmV+XaQDPjrsB/B9Sy3u69q9j8PMTrBWAQatW7albJYOUBeqcBL1fvvRTZzWStvMAST15UIDaDZA=; Domain=.nseindia.com; Path=/; Max-Age=7175; HttpOnly",
       },
@@ -31,8 +32,8 @@ module.exports = {
           headers: {
             Connection: "keep-alive",
             "Accept-Encoding": "gzip, deflate, br",
-            Accept:
-              acceptHeader,
+            "User-Agent":
+			   userAgent,
             cookie: cookie,
           },
         });
