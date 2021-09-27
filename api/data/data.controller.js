@@ -15,7 +15,7 @@ module.exports = {
         "Accept-Encoding": "gzip, deflate, br",
         Accept: acceptHeader,
         cookie:
-          "bm_sv=1C15075032AD9779F846F827958C30AC~E4XyWorSkXiLipAILBI7hCc1reOqCX1KBPfjtU9lKOTI1OaWaAhvStjnwk8Fz1PZsOwdVCtWaZmmHM+ckugU+QYpxEJFI+Dk5AxX7OmydmEDj0Qp2dDoisY6djqIzJAvt9hqchbm0yrPWuD2n+Z77RPis1cH5uXiYZwmCiHSiD4=; Domain=.nseindia.com; Path=/; Max-Age=7193; HttpOnly",
+          "bm_mi=3D035DD5A6DBB9A6B12AC05856A99634~iTJ+6NZzo22uaxRd/PaRLjvqztPICsGjzjUAVKswh/K0PacFLoozSzyXGAvK2hAUQQ3qZlaECxy5R4jQe9JZtzm51zi0R8aPj4iCKb6uqRMXIQkjiL45iZG4c3tfA4QJFmD96i2Rh2fcMFBl+QDeg+lAyUMx9zpjuhFuOEVIVllT3TJclnCaJs6OgZ4UJQEfWvx8ahSRRu2idMK4Lq6fr+Ol5hnQx1a7rujdiW4f7Q0=; Domain=.nseindia.com; Path=/; Max-Age=0; HttpOnly",
       },
     })
       .then((result) => {
