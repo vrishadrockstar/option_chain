@@ -1,9 +1,12 @@
 const URL = "https://www.nseindia.com";
 const OPTION_URL = "https://www.nseindia.com/api/option-chain-indices?symbol=";
+const CHART_URL = "https://www.nseindia.com/api/chart-databyindex?index=";
 const axios = require("axios");
 const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
   "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+const cookie =
+  "bm_sv=F87AC320AD0971EAF63FB071C19C6279~lk/6D4Gm3mNEQu3gtCKTe5vUrXVlmxSHSeFpf7kZ3GqC2cvMYJMqgTalPg6hcSvPm3lWmggyKQKyoNRyBPc9tgp/WYnjQJBHuEq8OeQ2lvrKhJU27ywQdb5NHRSs6b0FGZnfPRVotFt6sta9MNEq7808oRjcceXY7VHnsDzmLJ0=; Domain=.nseindia.com; Path=/; Max-Age=7198; HttpOnly";
 
 module.exports = {
   getData: (req, res, next) => {
@@ -14,8 +17,7 @@ module.exports = {
         Connection: "keep-alive",
         "Accept-Encoding": "gzip, deflate, br",
         Accept: acceptHeader,
-        cookie:
-          "bm_mi=3D035DD5A6DBB9A6B12AC05856A99634~iTJ+6NZzo22uaxRd/PaRLjvqztPICsGjzjUAVKswh/K0PacFLoozSzyXGAvK2hAUQQ3qZlaECxy5R4jQe9JZtzm51zi0R8aPj4iCKb6uqRMXIQkjiL45iZG4c3tfA4QJFmD96i2Rh2fcMFBl+QDeg+lAyUMx9zpjuhFuOEVIVllT3TJclnCaJs6OgZ4UJQEfWvx8ahSRRu2idMK4Lq6fr+Ol5hnQx1a7rujdiW4f7Q0=; Domain=.nseindia.com; Path=/; Max-Age=0; HttpOnly",
+        cookie: cookie,
       },
     })
       .then((result) => {
@@ -93,6 +95,48 @@ module.exports = {
           selectedDate,
           CE: { totOI: CE_totOI, totVol: CE_totVol },
           PE: { totOI: PE_totOI, totVol: PE_totVol },
+          message: "Fetched data successfully!",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          success: 0,
+          data: err,
+          message: "Failed to fetch data.",
+        });
+      });
+  },
+  getChartData: (req, res, next) => {
+    axios({
+      method: "get",
+      url: URL,
+      headers: {
+        Connection: "keep-alive",
+        "Accept-Encoding": "gzip, deflate, br",
+        Accept: acceptHeader,
+        cookie: cookie,
+      },
+    })
+      .then((result) => {
+        let cookie = result.headers["set-cookie"];
+        let index = req.query.index ? req.query.index : "";
+
+        return axios({
+          method: "get",
+          url: CHART_URL + index,
+          headers: {
+            Connection: "keep-alive",
+            "Accept-Encoding": "gzip, deflate, br",
+            Accept: acceptHeader,
+            cookie: cookie,
+          },
+        });
+      })
+      .then((result) => {
+        res.status(200).send({
+          success: 1,
+          data: result.data,
           message: "Fetched data successfully!",
         });
       })
