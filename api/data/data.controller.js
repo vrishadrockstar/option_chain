@@ -6,7 +6,7 @@ const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
   "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 const cookie =
-  "bm_sv=F87AC320AD0971EAF63FB071C19C6279~lk/6D4Gm3mNEQu3gtCKTe5vUrXVlmxSHSeFpf7kZ3GqC2cvMYJMqgTalPg6hcSvPm3lWmggyKQKyoNRyBPc9tgp/WYnjQJBHuEq8OeQ2lvrKhJU27ywQdb5NHRSs6b0FGZnfPRVotFt6sta9MNEq7808oRjcceXY7VHnsDzmLJ0=; Domain=.nseindia.com; Path=/; Max-Age=7198; HttpOnly";
+  "D27F1340BB381D9C07E3B17AC8D8E87E~Q+89kGGcacT2IbGIIMW1CCSHKW5nrdy3PJJaG4jQs0bjI6p6RkWKsvIOeJmhJCGr0H9pqUTyhqar1HovdD6LfcNcllxQhmS4p+Kc663tVEMOi0rgOy8CGYl251dTb2QjZe24NWss2qboA0OLD3Wig4vI6oyuvomGyWEVtT0i2No=; Domain=.nseindia.com; Path=/; Max-Age=7183; HttpOnly";
 
 module.exports = {
   getData: (req, res, next) => {
