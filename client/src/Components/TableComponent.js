@@ -89,6 +89,7 @@ class TableComponent extends React.Component {
             </th>
             <th colSpan="5">CE</th>
             <th colSpan="5">PE</th>
+            <th>PCR</th>
           </tr>
           <tr>
             <th title="Strike_Price" onClick={this.onSort}>
@@ -124,6 +125,9 @@ class TableComponent extends React.Component {
             <th title="PUT_LTP" onClick={this.onSort}>
               LTP
             </th>
+            <th title="PCR" onClick={this.onSort}>
+              PCR
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -141,6 +145,7 @@ class TableComponent extends React.Component {
                 <td>{unit.PUT_VOL}</td>
                 <td>{unit.PUT_IV}</td>
                 <td>{unit.PUT_LTP}</td>
+                <td>{(unit.PUT_OI/ unit.CALL_OI).toFixed(3) || 0}</td>
               </tr>
             );
           })}
