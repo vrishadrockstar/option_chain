@@ -145,7 +145,7 @@ class TableComponent extends React.Component {
                 <td>{unit.PUT_VOL}</td>
                 <td>{unit.PUT_IV}</td>
                 <td>{unit.PUT_LTP}</td>
-                <td>{(unit.PUT_OI/ unit.CALL_OI).toFixed(3) || 0}</td>
+                <td>{(unit.PUT_OI / unit.CALL_OI).toFixed(3) || 0}</td>
               </tr>
             );
           })}
