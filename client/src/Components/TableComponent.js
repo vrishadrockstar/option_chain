@@ -8,18 +8,34 @@ class TableComponent extends React.Component {
     this.state = {
       data: [],
       expiryDates: [],
+      symbols: [],
       selectedDate: "",
-      selectedType: "",
+      selectedType: arrTypes[0],
+      selectedSymbol: "",
       CE: {},
       PE: {},
     };
     this.onSort = this.onSort.bind(this);
     this.changeDate = this.changeDate.bind(this);
     this.changeType = this.changeType.bind(this);
+    this.changeSymbol = this.changeSymbol.bind(this);
   }
 
-  fetchData(date, order, type) {
-    fetch("/api/data?date=" + date + "&order=" + order + "&type=" + type)
+  fetchData(date, order, type, symbol) {
+    date ??= "";
+    order ??= "";
+    type ??= "";
+    symbol ??= "";
+    fetch(
+      "/api/data?date=" +
+        date +
+        "&order=" +
+        order +
+        "&type=" +
+        type +
+        "&symbol=" +
+        symbol
+    )
       .then(function (response) {
         return response.json();
       })
@@ -28,10 +44,22 @@ class TableComponent extends React.Component {
           data: result.data,
           expiryDates: result.expiryDates,
           selectedDate: result.selectedDate,
-          selectedType: type,
+          selectedType: result.selectedType,
+          selectedSymbol: result.selectedSymbol,
           CE: result.CE,
           PE: result.PE,
         });
+      })
+      .then(() => {
+        fetch("/api/data/master")
+          .then((masterData) => {
+            return masterData.json();
+          })
+          .then((equityData) => {
+            this.setState({
+              symbols: equityData.data,
+            });
+          });
       });
   }
 
@@ -43,32 +71,44 @@ class TableComponent extends React.Component {
     this.fetchData(
       this.state.selectedDate,
       event.target.title,
-      this.state.selectedType
+      this.state.selectedType,
+      this.state.selectedSymbol
     );
   }
 
   changeDate(event) {
-    this.fetchData(event.target.value);
+    this.fetchData(
+      event.target.value,
+      null,
+      this.state.selectedType,
+      this.state.selectedSymbol
+    );
   }
 
   changeType(event) {
-    this.fetchData(this.state.selectedDate, null, event.target.value);
+    this.fetchData(this.state.selectedDate, null, event.target.value, null);
+  }
+
+  changeSymbol(event) {
+    this.fetchData(null, null, this.state.selectedType, event.target.value);
   }
 
   render() {
     const newdata = this.state.data;
     const expiryDates = this.state.expiryDates;
+    const symbols = this.state.symbols;
     const selectedDate = this.state.selectedDate;
     const selectedType = this.state.selectedType;
+    const selectedSymbol = this.state.selectedSymbol;
     const CE = this.state.CE;
     const PE = this.state.PE;
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>
-              Expiry Date
-              <select onChange={this.changeDate} selected={selectedDate}>
+      <div>
+        <div class="flex-container">
+          <div class="flex-child">
+            <label>Expiry Date</label>
+            <div>
+              <select onChange={this.changeDate} value={selectedDate}>
                 {expiryDates.map((date) => {
                   return (
                     <option key={date} value={date}>
@@ -77,7 +117,13 @@ class TableComponent extends React.Component {
                   );
                 })}
               </select>
-              <select onChange={this.changeType} selected={selectedType}>
+            </div>
+          </div>
+          <div class="flex-child">
+            <label>Options</label>
+            <div>
+              <select onChange={this.changeType} value={selectedType}>
+                <option> Select Option </option>
                 {arrTypes.map((type) => {
                   return (
                     <option key={type} value={type}>
@@ -86,91 +132,114 @@ class TableComponent extends React.Component {
                   );
                 })}
               </select>
-            </th>
-            <th colSpan="5">CE</th>
-            <th colSpan="5">PE</th>
-            <th>PCR</th>
-          </tr>
-          <tr>
-            <th title="Strike_Price" onClick={this.onSort}>
-              Strike Price
-            </th>
-            <th title="CALL_OI" onClick={this.onSort}>
-              OI
-            </th>
-            <th title="CALL_OI_CHANGE" onClick={this.onSort}>
-              CHANGE IN OI
-            </th>
-            <th title="CALL_VOL" onClick={this.onSort}>
-              VOL
-            </th>
-            <th title="CALL_IV" onClick={this.onSort}>
-              IV
-            </th>
-            <th title="CALL_LTP" onClick={this.onSort}>
-              LTP
-            </th>
-            <th title="PUT_OI" onClick={this.onSort}>
-              OI
-            </th>
-            <th title="PUT_OI_CHANGE" onClick={this.onSort}>
-              CHANGE IN OI
-            </th>
-            <th title="PUT_VOL" onClick={this.onSort}>
-              VOL
-            </th>
-            <th title="PUT_IV" onClick={this.onSort}>
-              IV
-            </th>
-            <th title="PUT_LTP" onClick={this.onSort}>
-              LTP
-            </th>
-            <th title="PCR" onClick={this.onSort}>
-              PCR
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {newdata.map(function (unit, index) {
-            return (
-              <tr key={index} data-item={unit}>
-                <td>{unit.Strike_Price}</td>
-                <td>{unit.CALL_OI}</td>
-                <td>{unit.CALL_OI_CHANGE}</td>
-                <td>{unit.CALL_VOL}</td>
-                <td>{unit.CALL_IV}</td>
-                <td>{unit.CALL_LTP}</td>
-                <td>{unit.PUT_OI}</td>
-                <td>{unit.PUT_OI_CHANGE}</td>
-                <td>{unit.PUT_VOL}</td>
-                <td>{unit.PUT_IV}</td>
-                <td>{unit.PUT_LTP}</td>
-                <td>{(unit.PUT_OI / unit.CALL_OI).toFixed(3) || 0}</td>
-              </tr>
-            );
-          })}
-          <tr>
-            <td>Total</td>
-            <td>{CE.totOI || 0}</td>
-            <td></td>
-            <td>{CE.totVol || 0}</td>
-            <td></td>
-            <td></td>
-            <td>{PE.totOI || 0}</td>
-            <td></td>
-            <td>{PE.totVol || 0}</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Ratio</td>
-            <td colSpan="5">{(PE.totOI / CE.totOI).toFixed(3) || 0}(OI)</td>
-            <td colSpan="5">
-              {(PE.totVol / CE.totVol).toFixed(3) || 0}(Volume)
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </div>
+          </div>
+          <div class="flex-child">
+            <label>Symbol</label>
+            <div>
+              <select onChange={this.changeSymbol} value={selectedSymbol}>
+                <option> Select Symbol</option>
+                {symbols.map((sym) => {
+                  return (
+                    <option key={sym} value={sym}>
+                      {sym}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th colSpan="5">CE</th>
+              <th colSpan="5">PE</th>
+              <th>PCR</th>
+            </tr>
+            <tr>
+              <th title="Strike_Price" onClick={this.onSort}>
+                Strike Price
+              </th>
+              <th title="CALL_OI" onClick={this.onSort}>
+                OI
+              </th>
+              <th title="CALL_OI_CHANGE" onClick={this.onSort}>
+                CHANGE IN OI
+              </th>
+              <th title="CALL_VOL" onClick={this.onSort}>
+                VOL
+              </th>
+              <th title="CALL_IV" onClick={this.onSort}>
+                IV
+              </th>
+              <th title="CALL_LTP" onClick={this.onSort}>
+                LTP
+              </th>
+              <th title="PUT_OI" onClick={this.onSort}>
+                OI
+              </th>
+              <th title="PUT_OI_CHANGE" onClick={this.onSort}>
+                CHANGE IN OI
+              </th>
+              <th title="PUT_VOL" onClick={this.onSort}>
+                VOL
+              </th>
+              <th title="PUT_IV" onClick={this.onSort}>
+                IV
+              </th>
+              <th title="PUT_LTP" onClick={this.onSort}>
+                LTP
+              </th>
+              <th title="PCR" onClick={this.onSort}>
+                PCR
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {newdata.map(function (unit, index) {
+              return (
+                <tr key={index} data-item={unit}>
+                  <td>{unit.Strike_Price}</td>
+                  <td>{unit.CALL_OI}</td>
+                  <td>{unit.CALL_OI_CHANGE}</td>
+                  <td>{unit.CALL_VOL}</td>
+                  <td>{unit.CALL_IV}</td>
+                  <td>{unit.CALL_LTP}</td>
+                  <td>{unit.PUT_OI}</td>
+                  <td>{unit.PUT_OI_CHANGE}</td>
+                  <td>{unit.PUT_VOL}</td>
+                  <td>{unit.PUT_IV}</td>
+                  <td>{unit.PUT_LTP}</td>
+                  <td>{(unit.PUT_OI / unit.CALL_OI).toFixed(3) || 0}</td>
+                </tr>
+              );
+            })}
+            <tr>
+              <td>Total</td>
+              <td>{CE.totOI || 0}</td>
+              <td></td>
+              <td>{CE.totVol || 0}</td>
+              <td></td>
+              <td></td>
+              <td>{PE.totOI || 0}</td>
+              <td></td>
+              <td>{PE.totVol || 0}</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Ratio</td>
+              <td colSpan="5">{(PE.totOI / CE.totOI).toFixed(3) || 0}(OI)</td>
+              <td colSpan="5">
+                {(PE.totVol / CE.totVol).toFixed(3) || 0}(Volume)
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

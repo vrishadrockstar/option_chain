@@ -1,6 +1,9 @@
 const URL = "https://www.nseindia.com";
 const OPTION_URL = "https://www.nseindia.com/api/option-chain-indices?symbol=";
 const CHART_URL = "https://www.nseindia.com/api/chart-databyindex?index=";
+const MASTER_QUOTE_URL = "https://www.nseindia.com/api/master-quote";
+const EQUITIES_URL =
+  "https://www.nseindia.com/api/option-chain-equities?symbol=";
 const axios = require("axios");
 const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
@@ -10,6 +13,19 @@ const cookie =
 
 module.exports = {
   getData: (req, res, next) => {
+    let selectedSymbol = req.query.symbol;
+
+    let selectedType =
+      req.query.type && arrTypes.includes(req.query.type)
+        ? req.query.type
+        : arrTypes[0];
+
+    selectedType = !selectedSymbol ? selectedType : "";
+
+    let fetchUrl = !!selectedSymbol
+      ? EQUITIES_URL + selectedSymbol
+      : OPTION_URL + selectedType;
+
     axios({
       method: "get",
       url: URL,
@@ -22,14 +38,10 @@ module.exports = {
     })
       .then((result) => {
         let cookie = result.headers["set-cookie"];
-        let selectedType =
-          req.query.type && arrTypes.includes(req.query.type)
-            ? req.query.type
-            : arrTypes[0];
 
         return axios({
           method: "get",
-          url: OPTION_URL + selectedType,
+          url: fetchUrl,
           headers: {
             Connection: "keep-alive",
             "Accept-Encoding": "gzip, deflate, br",
@@ -40,6 +52,7 @@ module.exports = {
       })
       .then((result) => {
         let dataDecords = result.data;
+        console.log(fetchUrl);
         if (!dataDecords) {
           res.status(401).send({
             success: 0,
@@ -93,6 +106,8 @@ module.exports = {
           data: excelData,
           expiryDates: dataDecords.records.expiryDates,
           selectedDate,
+          selectedType,
+          selectedSymbol,
           CE: { totOI: CE_totOI, totVol: CE_totVol },
           PE: { totOI: PE_totOI, totVol: PE_totVol },
           message: "Fetched data successfully!",
@@ -125,6 +140,47 @@ module.exports = {
         return axios({
           method: "get",
           url: CHART_URL + index,
+          headers: {
+            Connection: "keep-alive",
+            "Accept-Encoding": "gzip, deflate, br",
+            Accept: acceptHeader,
+            cookie: cookie,
+          },
+        });
+      })
+      .then((result) => {
+        res.status(200).send({
+          success: 1,
+          data: result.data,
+          message: "Fetched data successfully!",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          success: 0,
+          data: err,
+          message: "Failed to fetch data.",
+        });
+      });
+  },
+  getMasterData: (req, res, next) => {
+    axios({
+      method: "get",
+      url: URL,
+      headers: {
+        Connection: "keep-alive",
+        "Accept-Encoding": "gzip, deflate, br",
+        Accept: acceptHeader,
+        cookie: cookie,
+      },
+    })
+      .then((result) => {
+        let cookie = result.headers["set-cookie"];
+
+        return axios({
+          method: "get",
+          url: MASTER_QUOTE_URL,
           headers: {
             Connection: "keep-alive",
             "Accept-Encoding": "gzip, deflate, br",
