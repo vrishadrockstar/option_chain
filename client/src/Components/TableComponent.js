@@ -1,4 +1,6 @@
 import React from "react";
+import TableToExcel from "@stanlystark/table-to-excel";
+import convertTZ from ".././ConvertTimeZone";
 
 const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 
@@ -19,6 +21,7 @@ class TableComponent extends React.Component {
     this.changeDate = this.changeDate.bind(this);
     this.changeType = this.changeType.bind(this);
     this.changeSymbol = this.changeSymbol.bind(this);
+    this.downloadExcel = this.downloadExcel.bind(this);
   }
 
   fetchData(date, order, type, symbol) {
@@ -93,6 +96,15 @@ class TableComponent extends React.Component {
     this.fetchData(null, null, this.state.selectedType, event.target.value);
   }
 
+  downloadExcel(event) {
+    let table = document.querySelector("#option_chain_table");
+    TableToExcel.convert(table, {
+      name: `${this.state.selectedType || this.state.selectedSymbol} | ${
+        this.state.selectedDate
+      } | ${convertTZ(new Date(), "Asia/Kolkata")}.xlsx`,
+    });
+  }
+
   render() {
     const newdata = this.state.data;
     const expiryDates = this.state.expiryDates;
@@ -149,9 +161,12 @@ class TableComponent extends React.Component {
               </select>
             </div>
           </div>
+          <div class="flex-child">
+            <button onClick={this.downloadExcel}>Download Excel</button>
+          </div>
         </div>
 
-        <table>
+        <table id="option_chain_table">
           <thead>
             <tr>
               <th></th>
