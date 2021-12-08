@@ -17,7 +17,7 @@ app.listen(port, "0.0.0.0", () => {
 });
 
 app.get("/", (req, res, next) => {
-  res.json({ message: "Hello World!!" });
+  res.json({ message: "Hello World!" });
 });
 
 app.get("*", (req, res) => {
