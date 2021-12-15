@@ -1,3 +1,4 @@
+const axios = require("axios");
 require("dotenv").config();
 
 const URL = process.env.URL;
@@ -5,7 +6,6 @@ const OPTION_URL = process.env.OPTION_URL;
 const CHART_URL = process.env.CHART_URL;
 const MASTER_QUOTE_URL = process.env.MASTER_QUOTE_URL;
 const EQUITIES_URL = process.env.EQUITIES_URL;
-const axios = require("axios");
 const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
   "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
@@ -23,7 +23,6 @@ module.exports = {
 
     selectedType = !selectedSymbol ? selectedType : "";
 
-    console.log(process.env.URL);
     let fetchUrl = !!selectedSymbol
       ? EQUITIES_URL + selectedSymbol
       : OPTION_URL + selectedType;
@@ -54,7 +53,6 @@ module.exports = {
       })
       .then((result) => {
         let dataDecords = result.data;
-        console.log(fetchUrl);
         if (!dataDecords) {
           res.status(401).send({
             success: 0,
@@ -116,7 +114,7 @@ module.exports = {
         });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         res.status(500).send({
           success: 0,
           data: err,
@@ -158,7 +156,7 @@ module.exports = {
         });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         res.status(500).send({
           success: 0,
           data: err,
@@ -199,7 +197,7 @@ module.exports = {
         });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         res.status(500).send({
           success: 0,
           data: err,
