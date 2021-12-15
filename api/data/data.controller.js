@@ -27,7 +27,6 @@ module.exports = {
       ? EQUITIES_URL + selectedSymbol
       : OPTION_URL + selectedType;
 
-    console.log(OPTION_URL + "option chain url " + fetchUrl);
     axios({
       method: "get",
       url: URL,
@@ -41,7 +40,6 @@ module.exports = {
       .then((result) => {
         let cookie = result.headers["set-cookie"];
 
-        console.log("URL : " + fetchUrl);
         return axios({
           method: "get",
           url: fetchUrl,
