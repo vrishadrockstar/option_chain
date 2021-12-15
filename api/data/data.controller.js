@@ -1,8 +1,10 @@
-const URL = PROCESS.env.URL;
-const OPTION_URL = PROCESS.env.OPTION_URL;
-const CHART_URL = PROCESS.env.CHART_URL;;
-const MASTER_QUOTE_URL = PROCESS.env.MASTER_QUOTE_URL;;
-const EQUITIES_URL = PROCESS.env.EQUITIES_URL;
+require("dotenv").config();
+
+const URL = process.env.URL;
+const OPTION_URL = process.env.OPTION_URL;
+const CHART_URL = process.env.CHART_URL;
+const MASTER_QUOTE_URL = process.env.MASTER_QUOTE_URL;
+const EQUITIES_URL = process.env.EQUITIES_URL;
 const axios = require("axios");
 const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
@@ -21,6 +23,7 @@ module.exports = {
 
     selectedType = !selectedSymbol ? selectedType : "";
 
+    console.log(process.env.URL);
     let fetchUrl = !!selectedSymbol
       ? EQUITIES_URL + selectedSymbol
       : OPTION_URL + selectedType;
