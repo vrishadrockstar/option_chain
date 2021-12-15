@@ -26,7 +26,7 @@ module.exports = {
       ? EQUITIES_URL + selectedSymbol
       : OPTION_URL + selectedType;
 
-    console.log("option chain url " + fetchUrl);
+    console.log(OPTION_URL + "option chain url " + fetchUrl);
     axios({
       method: "get",
       url: URL,
