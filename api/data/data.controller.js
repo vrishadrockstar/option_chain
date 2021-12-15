@@ -1,9 +1,8 @@
-const URL = "https://www.nseindia.com";
-const OPTION_URL = "https://www.nseindia.com/api/option-chain-indices?symbol=";
-const CHART_URL = "https://www.nseindia.com/api/chart-databyindex?index=";
-const MASTER_QUOTE_URL = "https://www.nseindia.com/api/master-quote";
-const EQUITIES_URL =
-  "https://www.nseindia.com/api/option-chain-equities?symbol=";
+const URL = PROCESS.env.URL;
+const OPTION_URL = PROCESS.env.OPTION_URL;
+const CHART_URL = PROCESS.env.CHART_URL;;
+const MASTER_QUOTE_URL = PROCESS.env.MASTER_QUOTE_URL;;
+const EQUITIES_URL = PROCESS.env.EQUITIES_URL;
 const axios = require("axios");
 const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
