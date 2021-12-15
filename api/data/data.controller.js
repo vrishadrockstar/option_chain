@@ -23,9 +23,10 @@ module.exports = {
     selectedType = !selectedSymbol ? selectedType : "";
 
     let fetchUrl = !!selectedSymbol
-      ? (EQUITIES_URL + selectedSymbol)
-      : (OPTION_URL + selectedType);
+      ? EQUITIES_URL + selectedSymbol
+      : OPTION_URL + selectedType;
 
+    console.log("option chain url " + OPTION_URL + selectedType);
     axios({
       method: "get",
       url: URL,
