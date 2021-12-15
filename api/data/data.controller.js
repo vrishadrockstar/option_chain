@@ -40,6 +40,7 @@ module.exports = {
       .then((result) => {
         let cookie = result.headers["set-cookie"];
 
+        console.log("URL : " + fetchUrl);
         return axios({
           method: "get",
           url: fetchUrl,
