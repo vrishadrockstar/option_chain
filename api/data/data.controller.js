@@ -1,7 +1,7 @@
 const axios = require("axios");
 // require("dotenv").config();
 
-const URL = process.env.URL;
+const URL = process.env.URL || process.env.NSE_URL;
 const OPTION_URL = process.env.OPTION_URL;
 const CHART_URL = process.env.CHART_URL;
 const MASTER_QUOTE_URL = process.env.MASTER_QUOTE_URL;
