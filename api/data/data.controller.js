@@ -10,7 +10,7 @@ const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
   "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 const cookie =
-  "bm_sv=998B573D0332BAAFA3045ABF78CBB9A7~YAAQDsQsMVUF9x2CAQAAzPPGJBCcqUa6a837RjEOo1c73F6wC6diHv2+fhNR8FS4g5gNS2dtrKuiU3Pj2HeTJ4RHi7BmH6rEXiXuYIzD7nQJR6B6mkBnPvYZuhBA1Xg2balOl9Az/Tki6neZjcQgEVmNqLerhHJNkLReapFoVMHdhukYNy4/99FFoByW6hQClPrQnstR5UfPatq4gWKejBSMmLuDjM4RDMkILlTpY5o+bMVTc76YL7IZCvH/mCVsQro=~1; Domain=.nseindia.com; Path=/; Expires=Fri, 22 Jul 2022 09:16:47 GMT; Max-Age=7013; Secure";
+  "nseappid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkubnNlIiwiYXVkIjoiYXBpLm5zZSIsImlhdCI6MTY1ODc2NjA0NywiZXhwIjoxNjU4NzY5NjQ3fQ.2qIrHgcgPNNodjIWCOg5-QClSVVNy_Mq0qMyoKG_lnc; Max-Age=3600; Path=/; Expires=Mon, 25 Jul 2022 17:20:47 GMT; HttpOnly; Secure; SameSite=Lax";
 
 module.exports = {
   getData: (req, res, next) => {
