@@ -10,7 +10,7 @@ const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
   "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 const cookie =
-  "nseappid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkubnNlIiwiYXVkIjoiYXBpLm5zZSIsImlhdCI6MTY1ODc2NjA0NywiZXhwIjoxNjU4NzY5NjQ3fQ.2qIrHgcgPNNodjIWCOg5-QClSVVNy_Mq0qMyoKG_lnc; Max-Age=3600; Path=/; Expires=Mon, 25 Jul 2022 17:20:47 GMT; HttpOnly; Secure; SameSite=Lax";
+  "nseappid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkubnNlIiwiYXVkIjoiYXBpLm5zZSIsImlhdCI6MTY1ODc2NjA0NywiZXhwIjoxNjU4NzY5NjQ3fQ.2qIrHgcgPNNodjIWCOg5-QClSVVNy_Mq0qMyoKG_lnc; Max-Age=3600; Path=/; Expires=Mon, 25 Jul 2023 17:20:47 GMT; HttpOnly; Secure; SameSite=Lax";
 
 module.exports = {
   getData: (req, res, next) => {
