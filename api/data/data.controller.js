@@ -10,7 +10,7 @@ const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
   "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 const cookie =
-  "nseappid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkubnNlIiwiYXVkIjoiYXBpLm5zZSIsImlhdCI6MTY1ODc2NjA0NywiZXhwIjoxNjU4NzY5NjQ3fQ.2qIrHgcgPNNodjIWCOg5-QClSVVNy_Mq0qMyoKG_lnc; Max-Age=3600; Path=/; Expires=Mon, 25 Jul 2023 17:20:47 GMT; HttpOnly; Secure; SameSite=Lax";
+  "ak_bmsc=86BBC566F6E3EA12E2532333B6EA6302~000000000000000000000000000000~YAAQrowsMdBQZWKCAQAAcXajexDOng8Or63I9wEgMGaVi4jgtKyYMmRIFtNlEId+Bq2GGO9DMFffHD8isMj5s7XK6mcNzDlAjynl3OBLW0qpztc2J8b6WQUfvN3QEIEI4wVJt+YxzcR/HWevT5vBl59sGsPJKK9ZRbdegCGj9JPo2tU6sqXRmU0k2eNJn5tvzeXFtKjlUmxr2lvkEIYgcSpsH+3o7OrjTLxG5P0rUJc3C6vWbM9hdoaQq3EbWiKXHt2Jk7BKQulWW/+PE8/vvlY1VcBQ8XnWYGZrvFH1HHdKsiPGgl/NjkHCsRYhrecrQPSxQfLziiTXvHcqcXBwbuWOvebarF2lP+pOf2LHcBxe3FqziRhsUwVghxBMFMB6Vk0858sF+DWVA/U=; Domain=.nseindia.com; Path=/; Expires=Fri, 08 Aug 2025 06:08:06 GMT; Max-Age=7200; HttpOnly";
 
 module.exports = {
   getData: (req, res, next) => {
