@@ -2,11 +2,19 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const dataRoutes = require("./api/data/data.router.js");
 const path = require("path");
+const cors = require("cors");
 
 const port = process.env.PORT || 3001;
 const app = express();
 
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
 app.use(express.json());
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/api/data", dataRoutes);
