@@ -10,8 +10,7 @@ const EQUITIES_URL = process.env.EQUITIES_URL;
 const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
   "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-const cookie =
-  "bm_sv=0779F4E7B59E992E2E22FD65CF5FDE9D~YAAQrowsMVUJcWKCAQAAd4YnfBBO0rDKtHVW/NNmEXogUr64+Phfl/T4DfZpNS3JC/XQdYvSH20f+fbBXr8mgoZ2ZrAs1k9yuZ48bJFQvRwO5c7wkk/gE8d3/exGk0lLbOgJgmq9sLWibFXPADFE4uTjtbYQ8MjrX/3J2CEA8z5pyAeX16y7dmQkbVvU8bybrTAhR8O593UZa9GdQmRYiXayzI1rRUhRgsgPj3sGT2EndKUDN2FsI0mz86jl26kwsbc=~1; Domain=.nseindia.com; Path=/; Expires=Fri, 08 Aug 2025 08:31:34 GMT; Max-Age=7153; Secure";
+const cookie = process.env.COOKIE;
 
 module.exports = {
   getData: (req, res, next) => {
