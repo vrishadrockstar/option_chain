@@ -11,7 +11,7 @@ const arrTypes = ["NIFTY", "BANKNIFTY", "FINNIFTY"];
 const acceptHeader =
   "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 const cookie = process.env.COOKIE;
-console.log("cookie " , cookie);
+console.log("cookie ", cookie);
 
 module.exports = {
   getData: (req, res, next) => {
@@ -46,8 +46,6 @@ module.exports = {
         "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0",
       },
-
-      },
     })
       .then((result) => {
         let cookie = result.headers["set-cookie"];
@@ -68,9 +66,7 @@ module.exports = {
             TE: "trailers",
             "Upgrade-Insecure-Requests": "1",
             "User-Agent":
-             "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0",
-      },
-
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0",
           },
         });
       })
@@ -240,4 +236,3 @@ function GetSortOrder(prop) {
     return 0;
   };
 }
-
