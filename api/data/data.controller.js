@@ -36,6 +36,17 @@ module.exports = {
         "Accept-Encoding": "gzip, deflate, br",
         Accept: acceptHeader,
         cookie: cookie,
+        Host: "www.nseindia.com",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        TE: "trailers",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0",
+      },
+
       },
     })
       .then((result) => {
@@ -49,6 +60,17 @@ module.exports = {
             "Accept-Encoding": "gzip, deflate, br",
             Accept: acceptHeader,
             cookie: cookie,
+            Host: "www.nseindia.com",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1",
+            TE: "trailers",
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent":
+             "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0",
+      },
+
           },
         });
       })
